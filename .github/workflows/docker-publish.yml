@@ -29,9 +29,7 @@ jobs:
         run: echo ${{ secrets.QUAY_PASSWORD }} | podman login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
       - name: Docker image build
-        run: |
-          uses: podman build -t quay.io/mrright404/python-app:$(date +%s) -f Dockerfile .
+        run: podman build -t quay.io/mrright404/python-app:$(date +%s) -f Dockerfile .
 
       - name: Docker push
-        run: |
-          podman push quay.io/mrright404/python-app:$(date +%s)
+        run: podman push quay.io/mrright404/python-app:$(date +%s)
