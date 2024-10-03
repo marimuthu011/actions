@@ -21,11 +21,12 @@ jobs:
           sudo apt-get update
           sudo apt-get -y install podman
 
-        with:
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
+        # with:
+        #   username: ${{ secrets.QUAY_USERNAME }}
+        #   password: ${{ secrets.QUAY_PASSWORD }}
 
-      
+      - name: Log in to Quay.io
+        run: echo ${{ secrets.QUAY_PASSWORD }} | podman login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
       - name: Docker image build
         run: |
