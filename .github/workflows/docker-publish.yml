@@ -21,19 +21,17 @@ jobs:
           sudo apt-get update
           sudo apt-get -y install podman
 
-        # with:
-        #   username: ${{ secrets.QUAY_USERNAME }}
-        #   password: ${{ secrets.QUAY_PASSWORD }}
+      - name: Set image tag
+        id: tag_step
+        run: echo "::set-output name=tag::$(date +%s)"
+
 
       - name: Log in to Quay.io
         run: echo ${{ secrets.QUAY_PASSWORD }} | podman login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
       - name: Docker image build
-        run: podman build -t quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s) -f Dockerfile .
+        run: podman build -t quay.io/${{ secrets.QUAY_USERNAME }}/python-app:${{ steps.tag_step.outputs.tag }}  -f Dockerfile .
 
       - name: Docker push
-        run: podman tag quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s) quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s)
-
-      - name: Docker push
-        run: podman push quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s)
+        run: podman push quay.io/${{ secrets.QUAY_USERNAME }}/python-app:${{ steps.tag_step.outputs.tag }} 
       
