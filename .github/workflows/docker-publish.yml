@@ -21,9 +21,6 @@ jobs:
           sudo apt-get update
           sudo apt-get -y install podman
 
-      - name: quay login
-        uses: containers/podman-action@v2
-
         with:
           username: ${{ secrets.QUAY_USERNAME }}
           password: ${{ secrets.QUAY_PASSWORD }}
