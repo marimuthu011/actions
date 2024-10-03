@@ -30,7 +30,7 @@ jobs:
 
       - name: Docker image build
         run: |
-          uses: podman build . --file Dockerfile -tag quay.io/mrright404/python-app:$(date +%s)
+          uses: podman build -t quay.io/mrright404/python-app:$(date +%s) -f Dockerfile .
 
       - name: Docker push
         run: |
