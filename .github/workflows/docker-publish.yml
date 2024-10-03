@@ -16,6 +16,11 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
+      - name: Install Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install podman
+
       - name: quay login
         uses: containers/podman-action@v2
 
