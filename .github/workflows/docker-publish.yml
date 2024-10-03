@@ -30,9 +30,8 @@ jobs:
 
       - name: Docker image build
         run: |
-          cd ./flash
-          uses: podman build . --file dockerfile -tag quay.io/${{ secrets.QUAY_USERNAME }}/${{ secrets.QUAY_PASSWORD }}:$(date +%s)
+          uses: podman build . --file dockerfile -tag quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s)
 
       - name: Docker push
         run: |
-          podman push quay.io/${{ secrets.QUAY_USERNAME }}/${{ secrets.QUAY_PASSWORD }}:$(date +%s)
+          podman push quay.io/${{ secrets.QUAY_USERNAME }}/python-app:$(date +%s)
